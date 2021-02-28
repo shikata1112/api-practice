@@ -9,13 +9,13 @@ module Api
           category = Category.find_by(name: params[:category_name])
           if category.present?
             @ideas = category.ideas
-            render json: @ideas, each_serializer: IdeaSerializer
+            render json: @ideas, each_serializer: IdeaSerializer, root: 'data', adapter: :json
           else
             head :not_found
           end
         else
           @ideas = Idea.eager_load(:category)
-          render json: @ideas, each_serializer: IdeaSerializer
+          render json: @ideas, each_serializer: IdeaSerializer, root: 'data', adapter: :json
         end
       end
 
