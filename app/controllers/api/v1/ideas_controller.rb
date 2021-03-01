@@ -5,17 +5,11 @@ module Api
     # ideas_class
     class IdeasController < ApplicationController
       def index
-        if params[:category_name].present?
-          category = Category.find_by(name: params[:category_name])
-          if category.present?
-            @ideas = category.ideas
-            render json: @ideas, each_serializer: IdeaSerializer, root: 'data', adapter: :json
-          else
-            head :not_found
-          end
-        else
-          @ideas = Idea.eager_load(:category)
+        @ideas = Category.fetch_ideas(params[:category_name])
+        if @ideas.present?
           render json: @ideas, each_serializer: IdeaSerializer, root: 'data', adapter: :json
+        else
+          head :not_found
         end
       end
 
