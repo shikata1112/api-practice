@@ -1,1 +1,3 @@
-# Active Model Serializersを使用したAPI
+# README.md
+
+Ideaとcategoryを管理するAPI(Active Model Serializersを使用)
